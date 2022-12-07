@@ -1,21 +1,27 @@
-import React from "react"
+import React, { useState, useRef } from "react"
+import TodoList from "./TodoList"
+
 function App() {
+	//prettier ignore
+	let [ListOfTodos, setListofTodos] = useState([])
+	const todoNameRef = useRef()
+	const handleClick = (e) => {
+		let name = todoNameRef.current.value
+		setListofTodos((prevListOfTodos) => {
+			return [
+				...prevListOfTodos,
+				{ id: Math.floor(Math.random() * 100), string: name, complete: false },
+			]
+		})
+	}
+
 	return (
-		<div className="App">
-			<header className="App-header">
-				<p>
-					Edit <code>src/App.js</code> and save to reload.
-				</p>
-				<a
-					className="App-link"
-					href="https://reactjs.org"
-					target="_blank"
-					rel="noopener noreferrer"
-				>
-					Learn React
-				</a>
-			</header>
-		</div>
+		<>
+			<TodoList ListOfTodos={ListOfTodos} todoNameRef={todoNameRef} />
+			<input type="text" ref={todoNameRef} />
+			<button onClick={handleClick}>Add Todo</button>
+			<button>Erase Todos</button>
+		</>
 	)
 }
 
