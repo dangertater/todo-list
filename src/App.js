@@ -1,3 +1,4 @@
+import { List } from "@mui/material"
 import React, { useState, useRef } from "react"
 import TodoList from "./TodoList"
 
@@ -14,13 +15,23 @@ function App() {
 			]
 		})
 	}
+	//func will take the TodoList and check for complete/checked/boolean true
+	//----todos and erase them
+
+	const handleDeleteClick = () => {
+		let filterList = ListOfTodos.filter(
+			(unchecked) => unchecked.complete !== true
+		)
+		console.log(filterList)
+		setListofTodos(filterList)
+	}
 
 	return (
 		<>
 			<TodoList ListOfTodos={ListOfTodos} todoNameRef={todoNameRef} />
 			<input type="text" ref={todoNameRef} />
 			<button onClick={handleClick}>Add Todo</button>
-			<button>Erase Todos</button>
+			<button onClick={handleDeleteClick}>Delete Todos</button>
 		</>
 	)
 }
